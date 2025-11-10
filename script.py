@@ -250,4 +250,49 @@ marta_data = {
     (2035, 9): 100212,
     (2035, 10): 100212,
     (2035, 11): 100212,
-    (2035, 12):
+    (2035, 12): 100212
+}
+
+# Telegram bot данные
+BOT_TOKEN = '8442392037:AAEiM_b4QfdFLqbmmc1PXNvA99yxmFVLEp8'
+CHAT_ID = '350766421'
+
+# Текущее время
+now = datetime.datetime.now()
+year = now.year
+month = now.month
+
+# Ключ для поиска
+key = (year, month)
+
+# Суммы
+ark_sum = arkadiy_data.get(key, "Данные недоступны")
+mar_sum = marta_data.get(key, "Данные недоступны")
+
+# Названия месяцев на русском
+month_names = {
+    1: 'январь', 2: 'февраль', 3: 'март', 4: 'апрель', 5: 'май', 6: 'июнь',
+    7: 'июль', 8: 'август', 9: 'сентябрь', 10: 'октябрь', 11: 'ноябрь', 12: 'декабрь'
+}
+current_month = month_names.get(month, str(month))
+
+# Формируем сообщение — явная конкатенация для стабильности
+text = (
+    f"Для Аркадия на {current_month} {year}: {ark_sum}\n\n"
+    + f"https://debank.com/profile/0x305220d077474c5cab839e7c1cb3264aca19f1b9\n\n"
+    + f"Для Марты на {current_month} {year}: {mar_sum}\n\n"
+    + "https://debank.com/profile/0x10082016a94920abdf410cdb6f98c2ead2c57340"
+)
+
+# Отправка в Telegram
+url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+payload = {'chat_id': CHAT_ID, 'text': text}
+response = requests.post(url, data=payload)
+
+# Проверка и вывод в консоль
+if response.status_code == 200:
+    print("Сообщение отправлено успешно!")
+else:
+    print(f"Ошибка отправки: {response.status_code} - {response.text}")
+
+print(f"Отправлено для {current_month} {year}: Аркадий={ark_sum}, Марта={mar_sum}")
