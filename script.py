@@ -299,14 +299,14 @@ date_str = (
     f"{day} {current_month} {weekday} неделя {week_num}"
 )
 
-# Цели (максимальные значения из данных)
-ark_goal = 112912
-mar_goal = 100212
+# Цели (текущие значения)
+ark_goal = ark_sum
+mar_goal = mar_sum
 
 # Формируем сообщение
 header = "#Дети#Инвестиции"
-ark_line = f"Аркадий: {ark_sum} / цель {ark_goal}"
-mar_line = f"Марта: {mar_sum} / цель {mar_goal}"
+ark_line = f"Аркадий: цель \"{current_month}\" = {ark_sum} USD"
+mar_line = f"Марта: цель \"{current_month}\" = {mar_sum} USD"
 wisdom = (
     "Иногда лучше выключить мозг и ничего не делать. "
     "Самые богатые инвесторы в Биток - это люди, "
