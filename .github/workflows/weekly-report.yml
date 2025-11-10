@@ -1,0 +1,42 @@
+name: Weekly Balance Report
+
+on:
+  schedule:
+    # Каждую субботу в 9:00 UTC (изменить на '0 4 * * 6' для 9:00 EST, если нужно)
+    - cron: '0 9 * * 6'
+  workflow_dispatch:  # Позволяет запустить вручную из UI GitHub
+
+jobs:
+  run-report:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'  # Или твоя версия Python
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Lint code (optional check)
+      run: |
+        pip install flake8
+        flake8 script.py  # Добавь, если хочешь проверку стиля кода
+
+    - name: Run script
+      run: python script.py
+
+    - name: Upload logs (if failed)
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: error-logs
+        path: |
+          *.log
+          /tmp/*
