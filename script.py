@@ -1,7 +1,7 @@
 import datetime
 import requests
 
-# Данные из таблицы (hardcoded для Аркадия) — многострочный формат для flake8
+# Данные из таблицы (hardcoded для Аркадия) — многострочный формат
 arkadiy_data = {
     (2025, 11): 9818,
     (2025, 12): 10503,
@@ -127,7 +127,7 @@ arkadiy_data = {
     (2035, 12): 112912
 }
 
-# Данные для Марты — тоже многострочный формат
+# Данные для Марты
 marta_data = {
     (2025, 11): 5733,
     (2025, 12): 6160,
@@ -271,16 +271,25 @@ mar_sum = marta_data.get(key, "Данные недоступны")
 
 # Названия месяцев на русском
 month_names = {
-    1: 'январь', 2: 'февраль', 3: 'март', 4: 'апрель', 5: 'май', 6: 'июнь',
-    7: 'июль', 8: 'август', 9: 'сентябрь', 10: 'октябрь', 11: 'ноябрь', 12: 'декабрь'
+    1: 'январь', 2: 'февраль', 3: 'март', 4: 'апрель',
+    5: 'май', 6: 'июнь', 7: 'июль', 8: 'август',
+    9: 'сентябрь', 10: 'октябрь', 11: 'ноябрь', 12: 'декабрь'
 }
 current_month = month_names.get(month, str(month))
 
-# Формируем сообщение — разбили на переменные для коротких строк
+# URLs
+ark_url = (
+    "https://debank.com/profile/"
+    "0x305220d077474c5cab839e7c1cb3264aca19f1b9"
+)
+mar_url = (
+    "https://debank.com/profile/"
+    "0x10082016a94920abdf410cdb6f98c2ead2c57340"
+)
+
+# Формируем сообщение
 ark_line = f"Для Аркадия на {current_month} {year}: {ark_sum}"
-ark_url = "https://debank.com/profile/0x305220d077474c5cab839e7c1cb3264aca19f1b9"
 mar_line = f"Для Марты на {current_month} {year}: {mar_sum}"
-mar_url = "https://debank.com/profile/0x10082016a94920abdf410cdb6f98c2ead2c57340"
 text = (
     f"{ark_line}\n\n"
     f"{ark_url}\n\n"
@@ -288,24 +297,21 @@ text = (
     f"{mar_url}"
 )
 
-# Отправка в Telegram — разбили URL для короткой строки
-url = (
-    "https://api.telegram.org/bot"
-    + BOT_TOKEN
-    + "/sendMessage"
-)
+# Отправка в Telegram
+api_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 payload = {'chat_id': CHAT_ID, 'text': text}
-response = requests.post(url, data=payload)
+response = requests.post(api_url, data=payload)
 
 # Проверка и вывод в консоль
 if response.status_code == 200:
     print("Сообщение отправлено успешно!")
 else:
-    print(f"Ошибка отправки: {response.status_code} - {response.text}")
+    error_msg = f"Ошибка отправки: {response.status_code}"
+    print(f"{error_msg} - {response.text}")
 
-# Разбили print на короткие строки
-print_msg = (
+# Вывод результата
+result_msg = (
     f"Отправлено для {current_month} {year}: "
     f"Аркадий={ark_sum}, Марта={mar_sum}"
 )
-print(print_msg)
+print(result_msg)
