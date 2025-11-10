@@ -32,11 +32,11 @@ jobs:
     - name: Run script
       run: python script.py
 
-    - name: Upload logs (if failed)
+    - name: Upload logs (if failed) — fixed path
       if: failure()
       uses: actions/upload-artifact@v4
       with:
         name: error-logs
         path: |
-          *.log
-          /tmp/*
+          $GITHUB_WORKSPACE/*.log  # Только локальные логи в repo, без /tmp
+        if-no-files-found: ignore  # Игнорировать, если файлов нет
