@@ -287,14 +287,39 @@ mar_url = (
     "0x10082016a94920abdf410cdb6f98c2ead2c57340"
 )
 
+# Формируем дату в разрезе
+day = now.day
+weekday_names = {
+    0: 'пн', 1: 'вт', 2: 'ср', 3: 'чт',
+    4: 'пт', 5: 'сб', 6: 'вс'
+}
+weekday = weekday_names.get(now.weekday(), '')
+week_num = now.isocalendar()[1]
+date_str = (
+    f"{day} {current_month} {weekday} неделя {week_num}"
+)
+
+# Цели (максимальные значения из данных)
+ark_goal = 112912
+mar_goal = 100212
+
 # Формируем сообщение
-ark_line = f"Для Аркадия на {current_month} {year}: {ark_sum}"
-mar_line = f"Для Марты на {current_month} {year}: {mar_sum}"
+header = "#Дети#Инвестиции"
+ark_line = f"Аркадий: {ark_sum} / цель {ark_goal}"
+mar_line = f"Марта: {mar_sum} / цель {mar_goal}"
+wisdom = (
+    "Иногда лучше выключить мозг и ничего не делать. "
+    "Самые богатые инвесторы в Биток - это люди, "
+    "которые либо впали в кому, либо потеряли свои ключи."
+)
 text = (
-    f"{ark_line}\n\n"
+    f"{header}\n"
+    f"{date_str}\n\n"
+    f"{ark_line}\n"
     f"{ark_url}\n\n"
-    f"{mar_line}\n\n"
-    f"{mar_url}"
+    f"{mar_line}\n"
+    f"{mar_url}\n\n"
+    f"{wisdom}"
 )
 
 # Отправка в Telegram
