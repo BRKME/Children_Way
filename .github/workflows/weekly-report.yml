@@ -3,7 +3,7 @@ name: Weekly Balance Report
 on:
   schedule:
     # Каждую субботу в 9:00 UTC (изменить на '0 4 * * 6' для 9:00 EST, если нужно)
-    - cron: '0 9 * * 6'
+    - cron: '0 7 * * 6'
   workflow_dispatch:  # Позволяет запустить вручную из UI GitHub
 
 jobs:
