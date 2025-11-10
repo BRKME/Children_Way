@@ -276,13 +276,12 @@ month_names = {
 }
 current_month = month_names.get(month, str(month))
 
-# Формируем сообщение — явная конкатенация для стабильности
-text = (
-    f"Для Аркадия на {current_month} {year}: {ark_sum}\n\n"
-    + f"https://debank.com/profile/0x305220d077474c5cab839e7c1cb3264aca19f1b9\n\n"
-    + f"Для Марты на {current_month} {year}: {mar_sum}\n\n"
-    + "https://debank.com/profile/0x10082016a94920abdf410cdb6f98c2ead2c57340"
-)
+# Формируем сообщение — разбили на переменные для коротких строк
+ark_line = f"Для Аркадия на {current_month} {year}: {ark_sum}"
+ark_url = "https://debank.com/profile/0x305220d077474c5cab839e7c1cb3264aca19f1b9"
+mar_line = f"Для Марты на {current_month} {year}: {mar_sum}"
+mar_url = "https://debank.com/profile/0x10082016a94920abdf410cdb6f98c2ead2c57340"
+text = f"{ark_line}\n\n{ark_url}\n\n{mar_line}\n\n{mar_url}"
 
 # Отправка в Telegram
 url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
@@ -295,4 +294,9 @@ if response.status_code == 200:
 else:
     print(f"Ошибка отправки: {response.status_code} - {response.text}")
 
-print(f"Отправлено для {current_month} {year}: Аркадий={ark_sum}, Марта={mar_sum}")
+# Разбили print на короткие строки
+print_msg = (
+    f"Отправлено для {current_month} {year}: "
+    f"Аркадий={ark_sum}, Марта={mar_sum}"
+)
+print(print_msg)
