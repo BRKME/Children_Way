@@ -303,28 +303,43 @@ date_str = (
 ark_goal = ark_sum
 mar_goal = mar_sum
 
-# Формируем сообщение
-header = "#Дети#Инвестиции"
-ark_line = f"Аркадий: цель \"{current_month}\" = {ark_sum} USD"
-mar_line = f"Марта: цель \"{current_month}\" = {mar_sum} USD"
+# Инвестиционные правила
+investment_rules = (
+    "📋 ИНВЕСТИЦИОННЫЕ ПРАВИЛА:\n"
+    "1️⃣ No Margin\n"
+    "2️⃣ Используй только некоррелируемые позиции: USDT, BTC, ETH, ASTER, LINK, AAVE\n"
+    "3️⃣ Используй не более 5 LP пулов\n"
+    "4️⃣ Страхуй Beefy"
+)
+
+# Мудрость
 wisdom = (
     "💡 Иногда лучше выключить мозг и ничего не делать. "
     "Самые богатые инвесторы в Биток - это люди, "
     "которые либо впали в кому, либо потеряли свои ключи."
 )
+
+# Основной контент (в формате spoiler)
+main_content = (
+    f"Аркадий: цель \"{current_month}\" = {ark_sum} USD\n"
+    f"{ark_url}\n\n"
+    f"Марта: цель \"{current_month}\" = {mar_sum} USD\n"
+    f"{mar_url}"
+)
+
+# Формируем сообщение с spoiler для основного контента
+header = "#Дети#Инвестиции"
 text = (
     f"{header}\n"
     f"{date_str}\n\n"
-    f"{ark_line}\n"
-    f"{ark_url}\n\n"
-    f"{mar_line}\n"
-    f"{mar_url}\n\n"
+    f"||{main_content}||\n\n"
+    f"{investment_rules}\n\n"
     f"{wisdom}"
 )
 
 # Отправка в Telegram
 api_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-payload = {'chat_id': CHAT_ID, 'text': text}
+payload = {'chat_id': CHAT_ID, 'text': text, 'parse_mode': 'HTML'}
 response = requests.post(api_url, data=payload)
 
 # Проверка и вывод в консоль
