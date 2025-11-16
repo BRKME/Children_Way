@@ -323,9 +323,9 @@ wisdom = (
 # Основной контент (в формате spoiler)
 main_content = (
     f"Аркадий: цель \"{current_month}\" = {ark_sum} USD\n"
-    f"{ark_url}\n\n"
+    f"<tg-spoiler><a href=\"{ark_url}\">Баланс</a></tg-spoiler>\n\n"
     f"Марта: цель \"{current_month}\" = {mar_sum} USD\n"
-    f"{mar_url}"
+    f"<tg-spoiler><a href=\"{mar_url}\">Баланс</a></tg-spoiler>"
 )
 
 # Формируем сообщение с spoiler для основного контента
@@ -333,7 +333,7 @@ header = "#Дети#Инвестиции"
 text = (
     f"{header}\n"
     f"{date_str}\n\n"
-    f"||{main_content}||\n\n"
+    f"<tg-spoiler>{main_content}</tg-spoiler>\n\n"
     f"{investment_rules}\n\n"
     f"{wisdom}"
 )
