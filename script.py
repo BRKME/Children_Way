@@ -339,7 +339,11 @@ text = (
 
 # Отправка в Telegram
 api_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-payload = {'chat_id': CHAT_ID, 'text': text, 'parse_mode': 'HTML'}
+payload = {
+    'chat_id': CHAT_ID,
+    'text': text,
+    'parse_mode': 'HTML'
+}
 response = requests.post(api_url, data=payload)
 
 # Проверка и вывод в консоль
