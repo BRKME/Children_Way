@@ -312,6 +312,7 @@ investment_rules = (
     "3️⃣ Используй не более 5 LP пулов\n"
     "4️⃣ Страхуй Beefy\n"
     "5️⃣ Проверь LP через GROK AI"
+    "5️⃣ Саша 50% 60% BTC | 20% ETH | 10% Sol | 10% Trend coin"
 )
 
 wisdom = (
